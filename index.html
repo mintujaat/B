@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BMU DATING ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* GENERAL */
+* {margin:0; padding:0; box-sizing:border-box;}
+body {font-family:'Inter',sans-serif; background:#1a0f1a; color:#ffe6f0; line-height:1.6;}
+a {text-decoration:none; color:inherit; transition:0.3s;}
+
+/* HEADER */
+header {background:#330022; padding:15px 30px; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:100; box-shadow:0 4px 12px rgba(0,0,0,0.5);}
+header h1 {color:#ff5aa5; font-size:1.5rem; cursor:pointer;}
+#siteLogo {height:40px; margin-right:10px; cursor:pointer; border-radius:50%;}
+nav {display:flex; align-items:center; gap:20px;}
+nav a {color:#ffe6f0; font-weight:500; position:relative;}
+nav a::after {content:""; position:absolute; width:0%; height:2px; bottom:-4px; left:0; background:#ff4d94; transition:0.3s;}
+nav a:hover::after {width:100%;}
+.hamburger {display:none; flex-direction:column; cursor:pointer; gap:5px;}
+.hamburger div {width:25px; height:3px; background:#ff5aa5; transition:0.3s;}
+
+/* BANNERS */
+.banner {background:#ff4d94; color:#1a0f1a; text-align:center; padding:10px; font-weight:600; font-size:0.95rem; border-radius:8px; margin:10px 30px;}
+
+/* SEARCH BAR */
+.search-bar {margin:20px 30px; display:flex; justify-content:center;}
+.search-bar input {width:100%; max-width:400px; padding:12px 14px; border-radius:25px; border:none; font-size:0.95rem; outline:none; box-shadow:0 2px 12px rgba(255,0,128,0.5); background:#330022; color:#ffe6f0;}
+.search-bar input:focus {box-shadow:0 0 14px rgba(255,77,148,0.9);}
+
+/* MAIN SECTION */
+main {padding:0 30px 30px 30px;}
+h2.section-title {color:#ff5aa5; margin:25px 0 15px 0; font-size:1.4rem; border-bottom:2px solid #ff4d94; display:inline-block; padding-bottom:4px;}
+#postsContainer {display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:15px;}
+
+/* CARD */
+.card {background:#330022; border-radius:15px; box-shadow:0 6px 20px rgba(255,0,128,0.3); overflow:hidden; display:flex; flex-direction:column; transition:0.5s; opacity:0; transform:translateY(20px);}
+.card.visible {opacity:1; transform:translateY(0);}
+.card img {width:100%; height:160px; object-fit:cover; border-bottom:2px solid #ff4d94;}
+.card-content {padding:14px; display:flex; flex-direction:column; flex-grow:1;}
+.card h3 {color:#ff99c8; margin-bottom:6px; font-size:1.2rem;}
+.card p {flex-grow:1; margin-bottom:10px; font-size:0.9rem;}
+.card small {color:#ffb3d9; margin-bottom:6px;}
+.read-more {align-self:flex-start; background:#ff5aa5; color:#1a0f1a; padding:6px 12px; border-radius:20px; font-weight:600; cursor:pointer; font-size:0.85rem; transition:0.3s;}
+.read-more:hover {background:#ff77b3;}
+
+/* RATING */
+.rating {margin-top:8px; display:flex; align-items:center; flex-wrap:wrap;}
+.rating .star {cursor:pointer; font-size:1.2rem; color:#ffe066; margin-right:2px; transition:0.2s;}
+.rating .avgRating {margin-left:6px; font-size:0.85rem; color:#ffb3d9;}
+
+/* FOOTER */
+footer {background:#330022; color:#ffb3d9; text-align:center; padding:15px; margin-top:30px; font-size:0.85rem; border-top:2px solid #ff4d94;}
+
+/* RECOMMENDED CAROUSEL */
+.carousel {display:flex; overflow-x:auto; gap:12px; padding:12px 0;}
+.carousel::-webkit-scrollbar {display:none;}
+.carousel .card {min-width:220px; flex:0 0 auto;}
+
+/* FLOATING ALERT ICON */
+#alertsIcon {
+  position: fixed; bottom: 20px; right: 20px; background:#ff5aa5; color:#1a0f1a; border:none; border-radius:50%; width:60px; height:60px; font-size:1.5rem; cursor:pointer; box-shadow:0 4px 16px rgba(255,0,128,0.5); display:flex; align-items:center; justify-content:center; z-index:1000; transition:0.3s;
+}
+#alertsIcon:hover {background:#ff77b3;}
+
+/* ALERT POPUP */
+#alertsPopup {position: fixed; bottom: 90px; right: 20px; width: 300px; max-height: 400px; overflow-y:auto; background:#4d0033; border-radius:12px; box-shadow:0 6px 20px rgba(255,0,128,0.5); display:none; flex-direction: column; gap:10px; padding:12px; z-index:999;}
+.alert {background:#660044; border-left:4px solid #ff4d94; padding:10px 14px; border-radius:6px; box-shadow:0 2px 8px rgba(255,0,128,0.3);}
+.alert h3 {margin:0 0 4px 0; color:#ff99c8; font-size:1rem;}
+.alert p {margin:0; font-size:0.9rem; color:#ffe6f0;}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  header {padding:12px 15px; flex-wrap:wrap;}
+  nav {display:none; flex-direction:column; gap:8px; background:#330022; position:absolute; top:65px; right:0; width:180px; padding:15px; border-radius:8px;}
+  nav.show {display:flex;}
+  .hamburger {display:flex;}
+  .card img {height:140px;}
+  .search-bar {margin:15px;}
+  main {padding:0 15px 20px 15px;}
+  #postsContainer {grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:12px;}
+}
+@media(max-width:500px){
+  #alertsPopup {width:90%; right:5%; bottom:80px;}
+  #alertsIcon {width:50px; height:50px; font-size:1.2rem;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <img id="siteLogo" src="https://via.placeholder.com/40/ff5aa5/1a0f1a?text=❤️" alt="Logo">
+  <h1>BMU DATING ❤️</h1>
+  <div class="hamburger" id="hamburger"><div></div><div></div><div></div></div>
+  <nav id="navMenu">
+    <a href="#">Home</a>
+    <a href="about.html">About</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<div class="banner">💘 Share your romantic stories, confessions & experiences!</div>
+
+<div class="search-bar"><input type="text" id="searchInput" placeholder="Search posts..."></div>
+
+<div class="banner"><marquee id="marqueeText" behavior="scroll" scrollamount="6">Welcome to BMU Dating - Find your love & share your stories!</marquee></div>
+
+<main>
+  <h2 class="section-title">Recommended Posts</h2>
+  <div class="carousel" id="carouselContainer"></div>
+
+  <h2 class="section-title">All Posts</h2>
+  <div id="postsContainer"></div>
+</main>
+
+<!-- POPUP -->
+<div id="popupBox" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); display:flex; justify-content:center; align-items:center; z-index:9999;">
+  <div id="popupContent" style="background:#ffccd5; color:#330022; padding:20px; border-radius:15px; max-width:400px; text-align:center; min-width:300px;">
+    <img id="popupImageBox" src="" alt="Popup Image" style="max-width:100px; display:none; margin-bottom:10px; border-radius:50%;">
+    <p id="popupMessage">Loading...</p>
+    <button id="popupCloseBtn" disabled style="margin-top:15px; padding:8px 20px; background:#ff5aa5; border:none; border-radius:20px; cursor:not-allowed; opacity:0.5;">I AGREE ❤️</button>
+  </div>
+</div>
+
+<footer>© <span id="year"></span> BMU DATING ❤️ <br> Designed for hearts & stories</footer>
+
+<!-- ALERTS FLOAT -->
+<button id="alertsIcon">🔔</button>
+<div id="alertsPopup"></div>
+
+<!-- JS IMPORTS -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
+import { getFirestore, collection, getDocs, query, orderBy, doc, getDoc, addDoc } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js";
+
+document.getElementById('year').innerText = new Date().getFullYear();
+
+const firebaseConfig = {
+  apiKey: "AIzaSyA7pGe0YS6HrscAjwjJefgr9tAKO__UZkU",
+  authDomain: "blog-2f57c.firebaseapp.com",
+  projectId: "blog-2f57c",
+  storageBucket: "blog-2f57c.appspot.com",
+  messagingSenderId: "608339540577",
+  appId: "1:608339540577:web:cd5323ea45e3a4b4dc4820",
+  measurementId: "G-JEPHSB73V3"
+};
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// Hamburger toggle
+document.getElementById('hamburger').addEventListener('click', () => document.getElementById('navMenu').classList.toggle('show'));
+
+// LOAD SETTINGS
+async function loadSiteSettings(){
+  const settingsRef = doc(db,'settings','siteSettings');
+  const snap = await getDoc(settingsRef);
+  if(snap.exists()){
+    const data = snap.data();
+    if(data.logoURL) document.getElementById('siteLogo').src = data.logoURL;
+    if(data.marqueeText) document.getElementById('marqueeText').innerText = data.marqueeText;
+  }
+}
+
+// LOAD POSTS
+const postsContainer = document.getElementById('postsContainer');
+const carouselContainer = document.getElementById('carouselContainer');
+const searchInput = document.getElementById('searchInput');
+let allPosts = [];
+
+async function loadPosts(){
+  postsContainer.innerHTML=''; carouselContainer.innerHTML=''; allPosts=[];
+  const postsSnapshot = await getDocs(query(collection(db, 'blogs'), orderBy('createdAt', 'desc')));
+  postsSnapshot.forEach(docSnap=> allPosts.push({...docSnap.data(), id: docSnap.id}));
+  renderPosts(allPosts); renderCarousel(allPosts); lazyLoadCards(); attachStarListeners();
+}
+
+// RENDER POSTS
+function renderPosts(posts){
+  postsContainer.innerHTML='';
+  if(posts.length===0) postsContainer.innerHTML='<p style="grid-column:1/-1;text-align:center;">No posts found.</p>';
+  posts.forEach(post=>{
+    const card = document.createElement('div'); card.className='card';
+    card.innerHTML = `
+      <img src="${post.imageURL||'https://via.placeholder.com/400x180/ff77b3/1a0f1a?text=No+Image'}" alt="Post Image">
+      <div class="card-content">
+        <h3>${post.title}</h3>
+        <p>${post.content.slice(0,100)}...</p>
+        <small>By: ${post.authorName}</small>
+        <a href="read.html?id=${post.id}" class="read-more">Read More</a>
+        <div class="rating" data-post-id="${post.id}">
+          ${[1,2,3,4,5].map(i=>`<span class="star" data-value="${i}">☆</span>`).join('')}
+          <small class="avgRating">0/5</small>
+        </div>
+      </div>
+    `;
+    postsContainer.appendChild(card);
+  });
+}
+
+// CAROUSEL
+function renderCarousel(posts){
+  carouselContainer.innerHTML='';
+  const recommended = posts.filter(p=>p.recommended);
+  if(recommended.length===0){ carouselContainer.style.display='none'; return; }
+  carouselContainer.style.display='flex';
+  recommended.forEach(post=>{
+    const card = document.createElement('div'); card.className='card';
+    card.innerHTML=`
+      <img src="${post.imageURL||'https://via.placeholder.com/400x180/ff77b3/1a0f1a?text=No+Image'}" alt="Post Image">
+      <div class="card-content">
+        <h3>${post.title}</h3>
+        <p>${post.content.slice(0,80)}...</p>
+        <a href="read.html?id=${post.id}" class="read-more">Read More</a>
+      </div>
+    `;
+    carouselContainer.appendChild(card);
+  });
+}
+
+// LAZY LOAD
+function lazyLoadCards(){
+  document.querySelectorAll('.card').forEach(card=>{
+    const observer = new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{ if(entry.isIntersecting){ entry.target.classList.add('visible'); observer.unobserve(entry.target); } });
+    },{threshold:0.1});
+    observer.observe(card);
+  });
+}
+
+// SEARCH
+searchInput.addEventListener('input', ()=>{
+  const term = searchInput.value.toLowerCase();
+  const filtered = allPosts.filter(p=>p.title.toLowerCase().includes(term)||p.content.toLowerCase().includes(term));
+  renderPosts(filtered); lazyLoadCards(); attachStarListeners();
+  if(term.length>0) carouselContainer.style.display='none'; else renderCarousel(allPosts);
+});
+
+// RATINGS
+async function loadRatings(postId, container){
+  const snap = await getDocs(collection(db,"blogs",postId,"ratings"));
+  let total=0; snap.forEach(d=> total+=d.data().stars);
+  const avg = snap.size>0?(total/snap.size).toFixed(1):0;
+  container.querySelector(".avgRating").innerText=`${avg}/5`;
+}
+function attachStarListeners(){
+  document.querySelectorAll('.rating').forEach(ratingEl=>{
+    const postId = ratingEl.dataset.postId;
+    const stars = ratingEl.querySelectorAll('.star');
+    stars.forEach(star=>{
+      star.addEventListener('mouseover',()=>{ const val=star.dataset.value; stars.forEach((s,i)=>s.innerText=i<val?'★':'☆'); });
+      star.addEventListener('mouseleave',()=>loadRatings(postId,ratingEl));
+      star.addEventListener('click', async ()=>{
+        await addDoc(collection(db,"blogs",postId,"ratings"),{stars:parseInt(star.dataset.value),ratedAt:new Date()});
+        loadRatings(postId,ratingEl);
+      });
+    });
+    loadRatings(postId,ratingEl);
+  });
+}
+
+// POPUP
+async function showPopup(){
+  const popupRef = doc(db, "settings", "popupMessage");
+  const snap = await getDoc(popupRef);
+  if(snap.exists()){
+    const data = snap.data();
+    if(data.text) document.getElementById("popupMessage").innerText = data.text;
+    if(data.image){ const img=document.getElementById("popupImageBox"); img.src=data.image; img.style.display="block"; }
+    const box=document.getElementById("popupBox"); box.style.display="flex";
+    const btn=document.getElementById("popupCloseBtn"); btn.disabled=false; btn.style.cursor="pointer"; btn.style.opacity="1";
+    btn.onclick=()=>{ box.style.display="none"; };
+  }
+}
+showPopup();
+
+// ALERTS
+const icon=document.getElementById("alertsIcon");
+const popup=document.getElementById("alertsPopup");
+icon.addEventListener("click",()=>{ popup.style.display=popup.style.display==="flex"?"none":"flex"; });
+
+async function loadAlerts(){
+  popup.innerHTML='';
+  const snap = await getDocs(query(collection(db,"alerts"), orderBy("createdAt","desc")));
+  if(snap.empty){ popup.innerHTML='<p style="text-align:center;color:#ffb3d9;">No alerts</p>'; return; }
+  snap.forEach(docSnap=>{
+    const data=docSnap.data();
+    const div=document.createElement("div"); div.className="alert";
+    div.innerHTML=`<h3>${data.title}</h3><p>${data.message}</p>`;
+    popup.appendChild(div);
+  });
+}
+loadSiteSettings(); loadPosts(); loadAlerts();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy - BMU DATING ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* GENERAL */
+  body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #1a0f1a;
+    color: #ffe6f0;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  a { text-decoration: none; color: inherit; transition:0.3s; }
+  a:hover { color:#ff77b3; }
+
+  /* HEADER */
+  header {
+    background: #330022;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(255,0,128,0.5);
+  }
+  header h1 { color:#ff5aa5; margin:0; cursor:pointer; }
+  nav a {
+    margin-left: 20px;
+    color:#ffe6f0;
+    font-weight:500;
+    position: relative;
+  }
+  nav a::after {
+    content:"";
+    position:absolute;
+    width:0;
+    height:2px;
+    bottom:-3px;
+    left:0;
+    background:#ff77b3;
+    transition:0.3s;
+  }
+  nav a:hover::after { width:100%; }
+
+  /* HERO SECTION */
+  .hero {
+    text-align:center;
+    padding:4rem 2rem;
+    background: linear-gradient(135deg,#330022,#1a0f1a);
+  }
+  .hero h2 {
+    font-size:2.5rem;
+    margin-bottom:1rem;
+    color:#ff99c8;
+  }
+  .hero p {
+    max-width:700px;
+    margin:0 auto;
+    font-size:1.1rem;
+    color:#ffb3d9;
+  }
+
+  /* CONTENT */
+  .content {
+    padding:3rem 2rem;
+    max-width:900px;
+    margin:auto;
+  }
+  .content h3 {
+    color:#ff77b3;
+    margin-top:2rem;
+  }
+  .content p {
+    margin-top:0.5rem;
+    color:#ffcce0;
+  }
+  .content a { color:#ff77b3; font-weight:600; }
+
+  /* FOOTER */
+  footer {
+    background:#330022;
+    padding:1rem;
+    text-align:center;
+    margin-top:3rem;
+    font-size:0.9rem;
+    color:#ffb3d9;
+    border-top:2px solid #ff4d94;
+  }
+
+  /* RESPONSIVE */
+  @media(max-width:768px){
+    .hero h2 { font-size:2rem; }
+    .hero p { font-size:1rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>BMU DATING ❤️</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h2>Privacy Policy</h2>
+  <p>Your privacy matters to us. This Privacy Policy explains how <strong>BMU DATING ❤️</strong> collects, uses, and protects your information.</p>
+</section>
+
+<section class="content">
+  <h3>1. Information We Collect</h3>
+  <p>We collect only essential details such as your name, email, and published content. Sensitive personal data is never collected without your explicit consent.</p>
+
+  <h3>2. How We Use Information</h3>
+  <p>We use your information to improve BMU DATING ❤️, showcase your blogs, and keep the platform secure. Your data is never sold to third parties.</p>
+
+  <h3>3. Cookies</h3>
+  <p>We may use cookies to enhance user experience and track analytics. You can disable cookies from your browser if preferred.</p>
+
+  <h3>4. Data Security</h3>
+  <p>All data is securely stored on a USA-based database using industry-standard practices. While we ensure top-level security, we recommend using strong passwords for your account.</p>
+
+  <h3>5. Policy Updates</h3>
+  <p>This policy may be updated occasionally. Updates will always be reflected on this page with the effective date mentioned.</p>
+
+  <h3>6. Contact Us</h3>
+  <p>If you have any privacy-related questions, please reach us via the <a href="contact.html">Contact Page</a>.</p>
+</section>
+
+<footer>
+  &copy; <span id="year"></span> BMU DATING ❤️. All Rights Reserved.
+</footer>
+
+<script>
+  document.getElementById('year').innerText = new Date().getFullYear();
+</script>
+
+</body>
+</html>

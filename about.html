@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us - BMU DATING ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* GENERAL */
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    background: #1a0f1a;
+    color: #ffe6f0;
+    line-height: 1.6;
+  }
+  a {text-decoration: none; color: inherit; transition:0.3s;}
+
+  /* HEADER */
+  header {
+    background: #330022;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow:0 4px 12px rgba(255,0,128,0.5);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  header h1 {color:#ff5aa5; margin:0; cursor:pointer;}
+  nav a {
+    margin-left:20px;
+    color:#ffe6f0;
+    font-weight:500;
+    position:relative;
+  }
+  nav a::after {
+    content:"";
+    position:absolute;
+    width:0;
+    height:2px;
+    bottom:-3px;
+    left:0;
+    background:#ff77b3;
+    transition:0.3s;
+  }
+  nav a:hover::after {width:100%;}
+
+  /* HERO SECTION */
+  .hero {
+    text-align:center;
+    padding:4rem 2rem;
+    background: linear-gradient(135deg,#330022,#1a0f1a);
+  }
+  .hero h2 {
+    font-size:2.5rem;
+    margin-bottom:1rem;
+    color:#ff99c8;
+    animation: fadeInDown 1s ease;
+  }
+  .hero p {
+    max-width:700px;
+    margin:0 auto;
+    font-size:1.1rem;
+    color:#ffb3d9;
+    animation: fadeInUp 1.2s ease;
+  }
+
+  /* CONTENT */
+  .content {
+    padding:3rem 2rem;
+    max-width:900px;
+    margin:auto;
+  }
+  .content h3 {
+    color:#ff77b3;
+    margin-top:2rem;
+  }
+  .content p {
+    margin-top:0.5rem;
+    color:#ffcce0;
+  }
+  .content ul {list-style: none; padding-left: 0;}
+  .content ul li::before {
+    content:'❤️';
+    margin-right:8px;
+  }
+
+  /* FOOTER */
+  footer {
+    background:#330022;
+    padding:1rem;
+    text-align:center;
+    margin-top:3rem;
+    font-size:0.9rem;
+    color:#ffb3d9;
+    border-top:2px solid #ff4d94;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeInDown {
+    from { opacity:0; transform: translateY(-20px);}
+    to { opacity:1; transform: translateY(0);}
+  }
+  @keyframes fadeInUp {
+    from { opacity:0; transform: translateY(20px);}
+    to { opacity:1; transform: translateY(0);}
+  }
+
+  /* RESPONSIVE */
+  @media(max-width:768px){
+    .hero h2 {font-size:2rem;}
+    .hero p {font-size:1rem;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>BMU DATING ❤️</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h2>About Us</h2>
+  <p>Welcome to <strong>BMU DATING ❤️</strong> — a modern blogging platform designed to share stories, experiences, and love advice.  
+  We blend simplicity with a playful, romantic vibe to make your content shine.</p>
+</section>
+
+<section class="content">
+  <h3>Our Mission</h3>
+  <p>Our mission is to empower creators by providing a safe, fun, and engaging platform for sharing their stories.  
+  We focus on love, psychology, and relationship content to help our community connect.</p>
+
+  <h3>What We Offer</h3>
+  <ul>
+    <li>Clean & mobile-friendly design</li>
+    <li>Easy blog management via admin</li>
+    <li>Fast performance with secure database</li>
+    <li>Community-driven content sharing</li>
+  </ul>
+
+  <h3>Meet the Creator</h3>
+  <p>This platform is built with ❤️ and care, featuring a self-made secure database and modern design.  
+  Continuous improvements and new features keep BMU DATING ❤️ fresh and exciting.</p>
+</section>
+
+<footer>
+  &copy; <span id="year"></span> BMU DATING ❤️ All Rights Reserved.
+</footer>
+
+<script>
+  document.getElementById('year').innerText = new Date().getFullYear();
+</script>
+
+</body>
+</html>

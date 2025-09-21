@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BMU DATING ❤️ - Read Post</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* GENERAL */
+  body {margin:0; font-family:'Inter',sans-serif; background:#1a0f1a; color:#ffe6f0; line-height:1.6;}
+  a {text-decoration:none; color:inherit; transition:0.3s;}
+
+  /* HEADER */
+  header {background:#330022; padding:20px 40px; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:100; box-shadow:0 4px 12px rgba(255,0,128,0.5);}
+  header h1 {color:#ff5aa5; font-size:1.8rem; cursor:pointer;}
+  nav a {color:#ffe6f0; margin-left:20px; font-weight:500; position:relative;}
+  nav a::after {content:""; position:absolute; width:0%; height:2px; bottom:-4px; left:0; background:#ff4d94; transition:0.3s;}
+  nav a:hover::after {width:100%;}
+
+  /* MAIN */
+  main {padding:20px 40px; max-width:900px; margin:0 auto;}
+  .back {margin:20px 0; display:inline-block; background:#ff5aa5; color:#1a0f1a; padding:10px 18px; border-radius:25px; font-weight:600; text-decoration:none; transition:0.3s;}
+  .back:hover {background:#ff77b3;}
+  .post-img {width:100%; max-height:400px; object-fit:cover; border-radius:15px; margin-bottom:20px; border:2px solid #ff4d94;}
+  h1.post-title {color:#ff99c8; margin-bottom:12px; font-size:2rem;}
+  .author {color:#ffb3d9; margin-bottom:20px; font-style:italic;}
+  p.post-content {white-space:pre-wrap; font-size:1rem; line-height:1.8;}
+
+  /* FOOTER */
+  footer {background:#330022; color:#ffb3d9; text-align:center; padding:20px; margin-top:40px; border-top:2px solid #ff4d94; font-size:0.9rem;}
+
+  /* RESPONSIVE */
+  @media(max-width:768px){
+    header {padding:16px 20px;}
+    main {padding:16px 20px;}
+    .post-title {font-size:1.6rem;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>BMU DATING ❤️</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <a href="index.html" class="back">← Back to Home</a>
+  <img id="postImage" class="post-img" src="" alt="Post Image">
+  <h1 id="postTitle" class="post-title"></h1>
+  <p id="postAuthor" class="author"></p>
+  <p id="postContent" class="post-content"></p>
+</main>
+
+<footer>
+  © <span id="year"></span> BMU DATING ❤️
+</footer>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js";
+
+document.getElementById('year').innerText = new Date().getFullYear();
+
+// Firebase config
+const firebaseConfig = {
+  apiKey: "AIzaSyA7pGe0YS6HrscAjwjJefgr9tAKO__UZkU",
+  authDomain: "blog-2f57c.firebaseapp.com",
+  projectId: "blog-2f57c",
+  storageBucket: "blog-2f57c.appspot.com",
+  messagingSenderId: "608339540577",
+  appId: "1:608339540577:web:cd5323ea45e3a4b4dc4820",
+  measurementId: "G-JEPHSB73V3"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// Get post ID from URL
+const params = new URLSearchParams(window.location.search);
+const postId = params.get('id');
+
+if(!postId){
+  document.querySelector('main').innerHTML = "<p style='color:#ff5555;'>Invalid post ID.</p>";
+} else {
+  const postRef = doc(db, 'blogs', postId);
+  getDoc(postRef).then(docSnap => {
+    if(docSnap.exists()){
+      const post = docSnap.data();
+      document.getElementById('postImage').src = post.imageURL || 'https://via.placeholder.com/800x400/ff77b3/1a0f1a?text=No+Image';
+      document.getElementById('postTitle').innerText = post.title;
+      document.getElementById('postAuthor').innerText = `By: ${post.authorName}`;
+      document.getElementById('postContent').innerText = post.content;
+    } else {
+      document.querySelector('main').innerHTML = "<p style='color:#ff5555;'>Post not found.</p>";
+    }
+  }).catch(err => {
+    console.error(err);
+    document.querySelector('main').innerHTML = "<p style='color:#ff5555;'>Error loading post.</p>";
+  });
+}
+</script>
+
+</body>
+</html>

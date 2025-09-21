@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Contact - BMU DATING ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  body {
+    margin:0;
+    font-family:'Inter',sans-serif;
+    background:#1a0f1a;
+    color:#ffe6f0;
+  }
+
+  a { text-decoration:none; color:inherit; transition:0.3s; }
+  a:hover { color:#ff77b3; }
+
+  /* HEADER */
+  header {
+    background:#330022;
+    padding:1rem 2rem;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    box-shadow:0 4px 12px rgba(255,0,128,0.4);
+  }
+  header h1 { color:#ff5aa5; margin:0; cursor:pointer; }
+  nav a {
+    margin-left:20px;
+    color:#ffe6f0;
+    font-weight:500;
+    position:relative;
+  }
+  nav a::after {
+    content:"";
+    position:absolute;
+    width:0;
+    height:2px;
+    bottom:-3px;
+    left:0;
+    background:#ff77b3;
+    transition:0.3s;
+  }
+  nav a:hover::after { width:100%; }
+
+  /* HERO */
+  .hero {
+    text-align:center;
+    padding:4rem 2rem;
+    background: linear-gradient(135deg,#330022,#1a0f1a);
+  }
+  .hero h2 {
+    font-size:2.5rem;
+    margin-bottom:1rem;
+    color:#ff99c8;
+  }
+  .hero p {
+    max-width:700px;
+    margin:auto;
+    font-size:1.1rem;
+    color:#ffb3d9;
+  }
+
+  /* CONTACT FORM */
+  .contact-container {
+    max-width:700px;
+    margin:2rem auto;
+    padding:2rem;
+    background:#330022;
+    border-radius:12px;
+    box-shadow:0 4px 20px rgba(255,0,128,0.3);
+  }
+  .contact-container h3 {
+    text-align:center;
+    color:#ff77b3;
+    margin-top:0;
+  }
+  .contact-form {
+    display:grid;
+    gap:1rem;
+    margin-top:1rem;
+  }
+  .contact-form input, .contact-form textarea {
+    width:100%;
+    padding:0.8rem;
+    border:1px solid #4b1e3b;
+    border-radius:8px;
+    background:#1a0f1a;
+    color:#ffe6f0;
+    font-size:1rem;
+  }
+  .contact-form textarea { min-height:120px; resize:vertical; }
+  .contact-form button {
+    padding:0.9rem;
+    border:none;
+    background:#ff5aa5;
+    color:#fff;
+    font-size:1rem;
+    border-radius:8px;
+    cursor:pointer;
+    transition:background 0.3s, transform 0.2s;
+  }
+  .contact-form button:hover {
+    background:#ff77b3;
+    transform:scale(1.05);
+  }
+
+  .message-sent {
+    margin-top:1rem;
+    text-align:center;
+    color:#ff4d94;
+    font-weight:600;
+    display:none;
+  }
+
+  /* FOOTER */
+  footer {
+    background:#330022;
+    text-align:center;
+    padding:1rem;
+    color:#ffb3d9;
+    margin-top:3rem;
+    border-top:2px solid #ff4d94;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp { from {opacity:0; transform:translateY(20px);} to {opacity:1; transform:translateY(0);} }
+  @keyframes fadeDown { from {opacity:0; transform:translateY(-20px);} to {opacity:1; transform:translateY(0);} }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>BMU DATING ❤️</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h2>Contact Us</h2>
+  <p>We’d love to hear from you! Fill out the form below and we’ll get back to you as soon as possible.</p>
+</section>
+
+<div class="contact-container">
+  <h3>Send a Message</h3>
+  <form class="contact-form" id="contactForm">
+    <input type="text" id="name" placeholder="Your Name" required />
+    <input type="email" id="email" placeholder="Your Email" required />
+    <textarea id="message" placeholder="Your Message" required></textarea>
+    <button type="submit">Send</button>
+  </form>
+  <div class="message-sent" id="messageSent">MESSAGE SENT SUCCESSFULLY ✅</div>
+</div>
+
+<footer>
+  &copy; <span id="year"></span> BMU DATING ❤️. All Rights Reserved.
+</footer>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
+  import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA7pGe0YS6HrscAjwjJefgr9tAKO__UZkU",
+    authDomain: "blog-2f57c.firebaseapp.com",
+    projectId: "blog-2f57c",
+    storageBucket: "blog-2f57c.appspot.com",
+    messagingSenderId: "608339540577",
+    appId: "1:608339540577:web:cd5323ea45e3a4b4dc4820"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  const form = document.getElementById("contactForm");
+  const messageSentDiv = document.getElementById("messageSent");
+
+  form.addEventListener("submit", async function(e){
+    e.preventDefault();
+
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const message = document.getElementById("message").value;
+
+    try {
+      await addDoc(collection(db, "messages"), {
+        name, email, message, timestamp: serverTimestamp(), read:false
+      });
+
+      messageSentDiv.style.display = "block";
+      setTimeout(()=>{ messageSentDiv.style.display = "none"; }, 3000);
+
+      form.reset();
+    } catch(err){
+      alert("Failed to send message!");
+      console.error(err);
+    }
+  });
+
+  document.getElementById('year').innerText = new Date().getFullYear();
+</script>
+</body>
+</html>
